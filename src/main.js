@@ -44,6 +44,21 @@ import ImagePreview from "@/components/ImagePreview"
 import DictTag from '@/components/DictTag'
 
 const app = createApp(App)
+// 创建全局IntersctionObserver
+// app.config.globalProperties.IntersctionObserver = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const lazyImage = entry.target;
+      const lazyImageSrc = lazyImage.getAttribute('lazy-src');
+      if(lazyImageSrc){
+        lazyImage.src = lazyImageSrc
+        lazyImage.removeAttribute('lazy-src')
+        observer.unobserve(lazyImage)
+      }
+    }
+  })
+})
 
 // 全局方法挂载
 app.config.globalProperties.useDict = useDict
@@ -63,6 +78,26 @@ app.component('ImageUpload', ImageUpload)
 app.component('ImagePreview', ImagePreview)
 app.component('RightToolbar', RightToolbar)
 app.component('Editor', Editor)
+
+// 注册懒加载指令
+app.directive('mylazy', {
+  mounted(el, binding) {
+    el.setAttribute('lazy-src',binding.value);
+    observer.observe(el)
+  },
+  updated(el, binding) {
+    if (binding.value !== binding.oldValue) {
+      // 值变化时更新源并重新观察
+      el.setAttribute('lazy-src',binding.value);
+      observer.unobserve(el)
+      observer.observe(el)
+    }
+  },
+  unmounted(el) {
+    observer.unobserve(el)
+  }
+
+})
 
 app.use(router)
 app.use(store)

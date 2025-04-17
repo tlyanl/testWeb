@@ -67,7 +67,8 @@ export const constantRoutes = [
         component: () => import('@/views/index'),
         name: 'Index',
         meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
+      },
+     
     ]
   },
   {
@@ -83,7 +84,35 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
-  }
+  },
+  {
+    path: '',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: '/mylazy',
+        component: () => import('@/views/mylazy/index'),
+        name: 'mylazy',
+        meta: { title: '懒加载', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: '/myForm',
+        component: () => import('@/views/myForm/index'),
+        name: 'myForm',
+        meta: { title: '动态表单', icon: 'user' }
+      }
+    ]
+  },
 ]
 
 // 动态路由，基于用户权限动态去加载
