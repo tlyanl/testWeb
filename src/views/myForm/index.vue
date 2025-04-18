@@ -1,12 +1,3 @@
-<!--
- * @Author: tany tany@etsen.com.cn
- * @Date: 2025-04-15 17:25:02
- * @LastEditors: tany tany@etsen.com.cn
- * @LastEditTime: 2025-04-16 17:08:13
- * @FilePath: \RuoYi-Vue3\src\views\myForm\index.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
-
 <template>
   <div>
     <myForm
@@ -15,6 +6,7 @@
       :colSpan="3"
       v-if="myFormData.formConfig.length"
       @submit="submitForm"
+      :testjj="testjj"
     />
 
      <!-- 5 等分示例 -->
@@ -171,6 +163,10 @@ const initializeForm = () => {
 const submitForm = (e) => {
   console.log(e,'5555');
 };
+const testjj = ref('55555555')
+setTimeout(()=>{
+  testjj.value = '给对方'
+},3000)
 // 组件加载时初始化
 onMounted(() => {
   initializeForm();

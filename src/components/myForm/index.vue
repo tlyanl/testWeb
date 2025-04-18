@@ -89,12 +89,15 @@
      <el-row v-if="validFormConfig.length % colSpan === 0">
       <el-col :span="24" style="display: flex; justify-content: flex-end">
         <el-form-item >
-          <el-button type="primary" @click="submitForm">提交</el-button>
+          <el-button type="primary" :loading="loading" @click="submitForm">提交</el-button>
           <el-button @click="resetForm">重置</el-button>
         </el-form-item>
       </el-col>
     </el-row>
   </el-form>
+  <div>
+    {{testjj}}
+  </div>
 </template>
 
 <script setup>
@@ -127,11 +130,23 @@ const props = defineProps({
     type: Object,
     default: () => {},
   },
+  loading:{
+    type: Boolean,
+    default: false
+  },
   colSpan:{
     type: Number,
     default: 3
+  },
+  testjj: {
+    type: String,
+    default: ''
   }
 });
+console.log(props.loading,'5555');
+setTimeout(() => {
+  console.log(props.loading,'5222555');
+}, 5000);
 const formRef = ref(null);
 const num = ref(8)
 const colSpanNum = computed(()=>{
@@ -168,7 +183,6 @@ const formRules = computed(() => {
 const submitForm = () => {
   formRef.value.validate((valid) => {
     if (valid) {
-      console.log(formData);
       emit('submit', formData);
     } else {
       console.log('表单验证失败');

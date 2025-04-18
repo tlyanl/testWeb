@@ -1,3 +1,11 @@
+<!--
+ * @Author: tany tany@etsen.com.cn
+ * @Date: 2025-03-28 09:50:28
+ * @LastEditors: tany tany@etsen.com.cn
+ * @LastEditTime: 2025-04-18 16:48:31
+ * @FilePath: \RuoYi-Vue3\src\layout\components\AppMain.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <section class="app-main">
     <router-view v-slot="{ Component, route }">
@@ -14,7 +22,7 @@
 <script setup>
 import iframeToggle from "./IframeToggle/index"
 import useTagsViewStore from '@/store/modules/tagsView'
-
+// import {watch } from 'vue';
 const route = useRoute()
 const tagsViewStore = useTagsViewStore()
 
@@ -22,7 +30,7 @@ onMounted(() => {
   addIframe()
 })
 
-watch((route) => {
+watchEffect((route) => {
   addIframe()
 })
 
